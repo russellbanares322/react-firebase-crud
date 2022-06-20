@@ -34,16 +34,16 @@ const CreateEditUser = () => {
   const validate = () => {
     let errors = {};
     if (!name) {
-      errors.name = "Invalid input";
+      errors.name = "Please input name";
     }
     if (!location) {
-      errors.location = "Invalid input";
+      errors.location = "Please input location";
     }
     if (!contact) {
-      errors.contact = "Invalid input";
+      errors.contact = "Please input contact";
     }
     if (!details) {
-      errors.details = "Invalid input";
+      errors.details = "Please input details";
     }
     return errors;
   };
@@ -72,46 +72,55 @@ const CreateEditUser = () => {
                 <Form onSubmit={handleSubmit}>
                   <Form.Label>Name</Form.Label>
                   <Form.Control
-                    error={
-                      errors.name ? (
-                        <>
-                          <Alert variant="danger">{errors.name}</Alert>
-                        </>
-                      ) : null
-                    }
                     placeholder="Enter name"
                     onChange={handleChange}
                     name="name"
                     value={name}
                     autoFocus
                   />
+                  {errors.name ? (
+                    <div className="bg-danger mt-1 shadow p-1">
+                      <small className="text-white">{errors.name}</small>
+                    </div>
+                  ) : null}
+
                   <Form.Label>Location</Form.Label>
                   <Form.Control
-                    error={
-                      errors.location ? { content: errors.location } : null
-                    }
                     placeholder="Enter location"
                     onChange={handleChange}
                     name="location"
                     value={location}
                   />
+                  {errors.location ? (
+                    <div className="bg-danger mt-1 shadow p-1">
+                      <small className="text-white">{errors.location}</small>
+                    </div>
+                  ) : null}
                   <Form.Label>Contact</Form.Label>
                   <Form.Control
-                    error={errors.contact ? { content: errors.contact } : null}
                     placeholder="Enter contact no"
                     onChange={handleChange}
                     name="contact"
                     value={contact}
                   />
+                  {errors.contact ? (
+                    <div className="bg-danger mt-1 shadow p-1">
+                      <small className="text-white">{errors.contact}</small>
+                    </div>
+                  ) : null}
                   <Form.Label>Details</Form.Label>
                   <Form.Control
                     as="textarea"
-                    error={errors.details ? { content: errors.details } : null}
                     placeholder="Enter details"
                     onChange={handleChange}
                     name="details"
                     value={details}
                   />
+                  {errors.details ? (
+                    <div className="bg-danger mt-1 shadow p-1">
+                      <small className="text-white">{errors.details}</small>
+                    </div>
+                  ) : null}
                   <Form.Label>Upload</Form.Label>
                   <Form.Control
                     type="file"
