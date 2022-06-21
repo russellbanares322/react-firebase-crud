@@ -11,9 +11,11 @@ const CNavBar = () => {
           <Container>
             <Navbar.Brand href="#home">Navbar</Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link className="text-black" href="#home">
-                Home
-              </Nav.Link>
+              <Link to="/">
+                <Nav.Link className="text-black" href="#home">
+                  Home
+                </Nav.Link>
+              </Link>
               <Nav.Link className="text-black" href="#features">
                 Features
               </Nav.Link>

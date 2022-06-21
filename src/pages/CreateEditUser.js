@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Form,
-  Container,
-  Col,
-  Spinner,
-  Row,
-  Alert,
-} from "react-bootstrap";
+import { Button, Form, Container, Col, Spinner, Row } from "react-bootstrap";
 
-import { storage } from "../firebase";
+import { storage, db } from "../firebase";
 import { useParams, useNavigate } from "react-router-dom";
+import { getDownloadURL, uploadBytesResumable, ref } from "firebase/storage";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 const initialState = {
   name: "",
@@ -26,6 +20,47 @@ const CreateEditUser = () => {
   const [progress, setProgress] = useState(null);
   const [errors, setErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const uploadFile = () => {
+      const name = new Date().getTime() + file.name;
+      const storageRef = ref(storage, file.name);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setProgress(progress);
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+            default:
+              break;
+          }
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setData((prev) => ({
+              ...prev,
+              img: downloadURL,
+            }));
+          });
+        }
+      );
+    };
+
+    file && uploadFile();
+  }, [file]);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -48,20 +83,27 @@ const CreateEditUser = () => {
     return errors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let errors = validate();
     if (Object.keys(errors).length) return setErrors(errors);
+    setIsSubmit(true);
+    await addDoc(collection(db, "users"), {
+      ...data,
+      timestamp: serverTimestamp(),
+    });
+    navigate("/");
   };
 
   return (
     <div>
       <Container>
-        <Row className="justify-content-center mt-5 border shadow p-3">
+        <Row className="justify-content-center mt-5">
           <Col sm={4}>
             {isSubmit ? (
               <Spinner
-                className="text-center"
+                className="text-center mt-5"
+                size="xl"
                 animation="border"
                 role="status"
                 variant="dark"
@@ -69,7 +111,7 @@ const CreateEditUser = () => {
             ) : (
               <>
                 <h1>Add User</h1>
-                <Form onSubmit={handleSubmit}>
+                <Form className="border shadow p-3" onSubmit={handleSubmit}>
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     placeholder="Enter name"
@@ -79,7 +121,7 @@ const CreateEditUser = () => {
                     autoFocus
                   />
                   {errors.name ? (
-                    <div className="bg-danger mt-1 shadow p-1">
+                    <div className="bg-danger mt-1 shadow p-1 mb-2">
                       <small className="text-white">{errors.name}</small>
                     </div>
                   ) : null}
@@ -92,7 +134,7 @@ const CreateEditUser = () => {
                     value={location}
                   />
                   {errors.location ? (
-                    <div className="bg-danger mt-1 shadow p-1">
+                    <div className="bg-danger mt-1 shadow p-1 mb-2">
                       <small className="text-white">{errors.location}</small>
                     </div>
                   ) : null}
@@ -104,7 +146,7 @@ const CreateEditUser = () => {
                     value={contact}
                   />
                   {errors.contact ? (
-                    <div className="bg-danger mt-1 shadow p-1">
+                    <div className="bg-danger mt-1 shadow p-1 mb-2">
                       <small className="text-white">{errors.contact}</small>
                     </div>
                   ) : null}
@@ -117,7 +159,7 @@ const CreateEditUser = () => {
                     value={details}
                   />
                   {errors.details ? (
-                    <div className="bg-danger mt-1 shadow p-1">
+                    <div className="bg-danger mt-1 shadow p-1 mb-2">
                       <small className="text-white">{errors.details}</small>
                     </div>
                   ) : null}
@@ -127,7 +169,12 @@ const CreateEditUser = () => {
                     onChange={(e) => setFile(e.target.files[0])}
                     placeholder="Enter contact no"
                   />
-                  <Button className="mt-3" type="submit" variant="info">
+                  <Button
+                    className="mt-3"
+                    type="submit"
+                    variant="info"
+                    disabled={progress !== null && progress < 100}
+                  >
                     Submit
                   </Button>
                 </Form>
