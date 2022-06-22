@@ -4,7 +4,14 @@ import { Button, Form, Container, Col, Spinner, Row } from "react-bootstrap";
 import { storage, db } from "../firebase";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDownloadURL, uploadBytesResumable, ref } from "firebase/storage";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDoc,
+  serverTimestamp,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 
 const initialState = {
   name: "",
@@ -21,6 +28,19 @@ const CreateEditUser = () => {
   const [errors, setErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    id && getSingleUser();
+  }, [id]);
+
+  const getSingleUser = async () => {
+    const docRef = doc(db, "users", id);
+    const snapshot = await getDoc(docRef);
+    if (snapshot.exists()) {
+      setData({ ...snapshot.data() });
+    }
+  };
 
   useEffect(() => {
     const uploadFile = () => {
@@ -88,10 +108,26 @@ const CreateEditUser = () => {
     let errors = validate();
     if (Object.keys(errors).length) return setErrors(errors);
     setIsSubmit(true);
-    await addDoc(collection(db, "users"), {
-      ...data,
-      timestamp: serverTimestamp(),
-    });
+    if (!id) {
+      try {
+        await addDoc(collection(db, "users"), {
+          ...data,
+          timestamp: serverTimestamp(),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        await updateDoc(doc(db, "users", id), {
+          ...data,
+          timestamp: serverTimestamp(),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     navigate("/");
   };
 
@@ -110,7 +146,7 @@ const CreateEditUser = () => {
               />
             ) : (
               <>
-                <h1>Add User</h1>
+                <h1>{id ? "Update User" : "Add User"}</h1>
                 <Form className="border shadow p-3" onSubmit={handleSubmit}>
                   <Form.Label>Name</Form.Label>
                   <Form.Control
@@ -175,7 +211,7 @@ const CreateEditUser = () => {
                     variant="info"
                     disabled={progress !== null && progress < 100}
                   >
-                    Submit
+                    {id ? "Update" : "Upload"}
                   </Button>
                 </Form>
               </>
