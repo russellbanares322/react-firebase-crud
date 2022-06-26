@@ -1,5 +1,12 @@
 import React from "react";
-import { Navbar, Container, Button, Nav, Col } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Button,
+  Nav,
+  Col,
+  NavDropdown,
+} from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 
 const CNavBar = () => {
@@ -7,29 +14,20 @@ const CNavBar = () => {
   return (
     <>
       <Col sm={12}>
-        <Navbar bg="secondary" variant="dark" expand="lg">
+        <Navbar collapseOnSelect expand="lg" bg="secondary">
           <Container>
-            <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-            <Nav className="me-auto">
-              <Link to="/">
-                <Nav.Link className="text-black" href="#home">
-                  Home
-                </Nav.Link>
-              </Link>
-              <Nav.Link className="text-black" href="#features">
-                Features
-              </Nav.Link>
-              <Nav.Link className="text-black" href="#pricing">
-                Pricing
-              </Nav.Link>
-            </Nav>
-            <Button
-              className="pull-right"
-              variant="info"
-              onClick={() => navigate("/add")}
-            >
-              Add Apartment
-            </Button>
+            <Navbar.Brand href="#home">Crud</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="me-auto">
+                <Nav.Link onClick={() => navigate("/")}>Home</Nav.Link>
+              </Nav>
+              <Nav>
+                <Button variant="info" onClick={() => navigate("/add")}>
+                  Add
+                </Button>
+              </Nav>
+            </Navbar.Collapse>
           </Container>
         </Navbar>
       </Col>

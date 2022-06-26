@@ -3,9 +3,12 @@ import { db } from "../firebase";
 import { Card, Image, Button, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { onSnapshot, collection } from "firebase/firestore";
+import CModal from "../components/CModal";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -30,6 +33,11 @@ const Home = () => {
       unsub();
     };
   }, []);
+
+  const handleModal = (item) => {
+    setOpen(true);
+    setUser(item);
+  };
   return (
     <Container>
       <Row className="ml-4">
@@ -57,11 +65,23 @@ const Home = () => {
                 >
                   Update
                 </Button>
-                <Button variant="info">View</Button>
+                <Button variant="info" onClick={() => handleModal(item)}>
+                  View
+                </Button>
               </Card.Body>
             </Card>
           ))}
       </Row>
+      <Container>
+        {open && (
+          <CModal
+            open={open}
+            setOpen={setOpen}
+            handleDelete={() => console.log("delete")}
+            {...user}
+          />
+        )}
+      </Container>
     </Container>
   );
 };

@@ -211,7 +211,7 @@ const CreateEditUser = () => {
                     variant="info"
                     disabled={progress !== null && progress < 100}
                   >
-                    {id ? "Update" : "Upload"}
+                    {id ? "Save" : "Upload"}
                   </Button>
                 </Form>
               </>
