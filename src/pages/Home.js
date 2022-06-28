@@ -40,7 +40,7 @@ const Home = () => {
     setUser(item);
   };
   const handleDelete = async (id) => {
-    if (window.confirm("Delete that shit ?")) {
+    if (window.confirm("Are you sure that you want to delete the user?")) {
       try {
         setShow(false);
         await deleteDoc(doc(db, "users", id));
