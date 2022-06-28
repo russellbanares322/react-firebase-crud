@@ -23,6 +23,9 @@ const CNavBar = () => {
                 <Nav.Link onClick={() => navigate("/")}>Home</Nav.Link>
               </Nav>
               <Nav>
+                <Button variant="info" className="mx-2">
+                  Login
+                </Button>
                 <Button variant="info" onClick={() => navigate("/add")}>
                   Add
                 </Button>

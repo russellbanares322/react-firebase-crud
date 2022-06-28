@@ -154,6 +154,7 @@ const CreateEditUser = () => {
                     onChange={handleChange}
                     name="name"
                     value={name}
+                    e
                     autoFocus
                   />
                   {errors.name ? (
@@ -205,6 +206,13 @@ const CreateEditUser = () => {
                     onChange={(e) => setFile(e.target.files[0])}
                     placeholder="Enter contact no"
                   />
+                  <Button
+                    variant="dark"
+                    className="mt-3 mx-2"
+                    onClick={() => navigate("/")}
+                  >
+                    Return
+                  </Button>
                   <Button
                     className="mt-3"
                     type="submit"
