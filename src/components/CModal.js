@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+
 import { Button, Modal, Image, Container, CloseButton } from "react-bootstrap";
 
 const CModal = ({
@@ -9,9 +10,20 @@ const CModal = ({
   contact,
   details,
   location,
-  id,
   handleDelete,
+  id,
 }) => {
+  const [isApprove, setIsApprove] = useState(true);
+  const [confirm, setConfirm] = useState(false);
+  const handleConfirm = () => {
+    setConfirm(!confirm);
+  };
+
+  const handleApprove = () => {
+    setIsApprove(!isApprove);
+  };
+  const handleClose = () => setConfirm(false);
+
   return (
     <Container>
       <Modal.Dialog>
@@ -33,15 +45,50 @@ const CModal = ({
             <p>{location}</p>
           </Modal.Body>
           <Modal.Footer>
+            <Button variant="danger" onClick={handleConfirm}>
+              Delete
+            </Button>
             <Button variant="dark" onClick={() => setShow(false)}>
               Return
-            </Button>
-            <Button variant="danger" onClick={() => handleDelete(id)}>
-              Delete
             </Button>
           </Modal.Footer>
         </Modal>
       </Modal.Dialog>
+      <Container>
+        <Modal.Dialog>
+          <Modal
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            className="modal_delete"
+            show={confirm}
+            onHide={confirm}
+          >
+            <Modal.Header onClick={handleClose} closeButton>
+              <Modal.Title>Are you sure ?</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>
+                Do you really want to delete this record? This process cannot be
+                undone.
+              </p>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  handleDelete(id);
+                  handleApprove();
+                }}
+              >
+                Yes
+              </Button>
+              <Button variant="dark" onClick={handleClose}>
+                No
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </Modal.Dialog>
+      </Container>
     </Container>
   );
 };

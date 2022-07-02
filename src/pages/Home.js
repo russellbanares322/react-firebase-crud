@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { Card, Image, Button, Container, Row } from "react-bootstrap";
+import { Card, Image, Button, Container, Row, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { onSnapshot, collection, deleteDoc, doc } from "firebase/firestore";
 import CModal from "../components/CModal";
+import { toBeRequired } from "@testing-library/jest-dom/dist/matchers";
 
-const Home = () => {
+const Home = ({ isApprove, setConfirm }) => {
   const [users, setUsers] = useState([]);
   const [show, setShow] = useState(false);
-
-  const [user, setUser] = useState({});
+  const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,10 +38,11 @@ const Home = () => {
 
   const modalToggle = (item) => {
     setShow(true);
-    setUser(item);
+    setUserData(item);
   };
+
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure that you want to delete the user?")) {
+    if (isApprove !== false) {
       try {
         setShow(false);
         await deleteDoc(doc(db, "users", id));
@@ -52,13 +54,13 @@ const Home = () => {
   };
   return (
     <Container>
-      <Row className="ml-4">
+      <Row>
         {users &&
           users.map((item) => (
             <Card
-              style={{ width: "20rem", margin: "10px" }}
+              style={{ width: "20rem", margin: "20px" }}
               key={item.id}
-              className="mt-5 shadow p-3"
+              className="mt-5 shadow p-3 "
             >
               <Card.Body>
                 <Card.Img
@@ -93,7 +95,7 @@ const Home = () => {
             show={show}
             setShow={setShow}
             handleDelete={handleDelete}
-            {...user}
+            {...userData}
           />
         )}
       </Container>

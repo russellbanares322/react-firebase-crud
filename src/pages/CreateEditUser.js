@@ -147,7 +147,7 @@ const CreateEditUser = () => {
             ) : (
               <>
                 <h1 className="user_text">{id ? "Update User" : "Add User"}</h1>
-                <Form className="border shadow p-3" onSubmit={handleSubmit}>
+                <Form className="border shadow p-5" onSubmit={handleSubmit}>
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     placeholder="Enter name"

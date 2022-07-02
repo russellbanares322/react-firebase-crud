@@ -6,11 +6,13 @@ import {
   Nav,
   Col,
   NavDropdown,
+  Form,
 } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 
 const CNavBar = () => {
   const navigate = useNavigate();
+
   return (
     <>
       <Container className="pt-4">
@@ -22,16 +24,15 @@ const CNavBar = () => {
             bg="light"
           >
             <Container>
-              <Navbar.Brand href="#home">Crud</Navbar.Brand>
+              <Navbar.Brand className="title_text">Crud</Navbar.Brand>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto">
-                  <Nav.Link onClick={() => navigate("/")}>Home</Nav.Link>
+                  <Nav.Link className="nav_home" onClick={() => navigate("/")}>
+                    Home
+                  </Nav.Link>
                 </Nav>
                 <Nav>
-                  <Button variant="outline-info" className="mx-2">
-                    Login
-                  </Button>
                   <Button variant="info" onClick={() => navigate("/add")}>
                     Add
                   </Button>
@@ -40,20 +41,6 @@ const CNavBar = () => {
             </Container>
           </Navbar>
         </Col>
-        <Container>
-          <small className="text-white mx-2">Email</small>
-          <input className="my-1" type="text" /> <br />
-          <small className="text-white">Password</small>
-          <input className="" type="password" /> <br />
-          <div className="my-2">
-            <Button className="mx-2" variant="info" size="sm">
-              Login
-            </Button>
-            <Button variant="info" size="sm">
-              SignUp
-            </Button>
-          </div>
-        </Container>
       </Container>
     </>
   );

@@ -1,8 +1,27 @@
 .App {
   text-align: center;
+  padding-bottom: 600px;
 }
 
 .user_text {
-  font-family: 'League Gothic', sans-serif;
+  font-family: "League Gothic", sans-serif;
   font-size: 50px;
 }
+
+.title_text {
+  font-family: "League Gothic", sans-serif;
+  font-size: 30px;
+}
+
+.nav_home {
+  color: black !important;
+}
+.nav_home:hover {
+  text-decoration: underline;
+}
+
+.modal_delete {
+ background-color: #6C757D;
+
+
+} 
