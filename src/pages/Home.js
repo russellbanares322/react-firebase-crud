@@ -12,7 +12,7 @@ const Home = ({ isApprove, setConfirmModal }) => {
   const [users, setUsers] = useState([]);
   const [show, setShow] = useState(false);
   const [userData, setUserData] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
