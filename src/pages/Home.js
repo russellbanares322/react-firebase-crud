@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { Card, Image, Button, Container, Row, Modal } from "react-bootstrap";
+import { Card, Button, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { onSnapshot, collection, deleteDoc, doc } from "firebase/firestore";
 import CModal from "../components/CModal";
+import CSpinner from "../components/CSpinner";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -37,6 +38,10 @@ const Home = ({ isApprove, setConfirmModal }) => {
     };
   }, []);
 
+  if (loading) {
+    return <CSpinner />;
+  }
+
   const modalToggle = (item) => {
     setShow(true);
     setUserData(item);
@@ -60,7 +65,7 @@ const Home = ({ isApprove, setConfirmModal }) => {
         {users &&
           users.map((item) => (
             <Card
-              style={{ width: "20rem", margin: "20px" }}
+              style={{ width: "20rem", marginLeft: "52px" }}
               key={item.id}
               className="mt-5 shadow p-3 "
             >

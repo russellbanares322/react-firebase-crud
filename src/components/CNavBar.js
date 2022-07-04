@@ -1,14 +1,6 @@
 import React from "react";
-import {
-  Navbar,
-  Container,
-  Button,
-  Nav,
-  Col,
-  NavDropdown,
-  Form,
-} from "react-bootstrap";
-import { useNavigate, Link } from "react-router-dom";
+import { Navbar, Container, Button, Nav, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const CNavBar = () => {
   const navigate = useNavigate();
@@ -24,7 +16,12 @@ const CNavBar = () => {
             bg="light"
           >
             <Container>
-              <Navbar.Brand className="title_text">Crud</Navbar.Brand>
+              <Navbar.Brand
+                onClick={() => navigate("/")}
+                className="title_text"
+              >
+                Crud
+              </Navbar.Brand>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto">

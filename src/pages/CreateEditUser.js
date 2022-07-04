@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Container, Col, Spinner, Row } from "react-bootstrap";
+import { Button, Form, Container, Col, Row } from "react-bootstrap";
 import { storage, db } from "../firebase";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDownloadURL, uploadBytesResumable, ref } from "firebase/storage";
@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CSpinner from "../components/CSpinner";
 const initialState = {
   name: "",
   location: "",
@@ -139,13 +140,7 @@ const CreateEditUser = () => {
         <Row className="justify-content-center mt-5">
           <Col sm={4}>
             {isSubmit ? (
-              <Spinner
-                className="text-center mt-5"
-                size="xl"
-                animation="border"
-                role="status"
-                variant="dark"
-              />
+              <CSpinner />
             ) : (
               <>
                 <h1 className="user_text">{id ? "Update User" : "Add User"}</h1>
