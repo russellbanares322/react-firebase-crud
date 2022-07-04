@@ -14,15 +14,15 @@ const CModal = ({
   id,
 }) => {
   const [isApprove, setIsApprove] = useState(true);
-  const [confirm, setConfirm] = useState(false);
-  const handleConfirm = () => {
-    setConfirm(!confirm);
+  const [confirmModal, setConfirmModal] = useState(false);
+  const handleConfirmModal = () => {
+    setConfirmModal(!confirmModal);
   };
 
   const handleApprove = () => {
     setIsApprove(!isApprove);
   };
-  const handleClose = () => setConfirm(false);
+  const handleClose = () => setConfirmModal(false);
 
   return (
     <Container>
@@ -45,7 +45,7 @@ const CModal = ({
             <p>{location}</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="danger" onClick={handleConfirm}>
+            <Button variant="danger" onClick={handleConfirmModal}>
               Delete
             </Button>
             <Button variant="dark" onClick={() => setShow(false)}>
@@ -60,8 +60,8 @@ const CModal = ({
             aria-labelledby="contained-modal-title-vcenter"
             centered
             className="modal_delete"
-            show={confirm}
-            onHide={confirm}
+            show={confirmModal}
+            onHide={confirmModal}
           >
             <Modal.Header onClick={handleClose} closeButton>
               <Modal.Title>Are you sure ?</Modal.Title>

@@ -5,7 +5,7 @@ import CNavBar from "./components/CNavBar";
 import { db } from "./firebase";
 import CreateEditUser from "./pages/CreateEditUser";
 import Home from "./pages/Home";
-
+import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <div className="App bg-secondary">
@@ -15,6 +15,17 @@ function App() {
         <Route path="/add" element={<CreateEditUser />} />
         <Route path="/edit/:id" element={<CreateEditUser />} />
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Container, Col, Spinner, Row } from "react-bootstrap";
-
 import { storage, db } from "../firebase";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDownloadURL, uploadBytesResumable, ref } from "firebase/storage";
@@ -12,7 +11,8 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const initialState = {
   name: "",
   location: "",
@@ -114,11 +114,13 @@ const CreateEditUser = () => {
           ...data,
           timestamp: serverTimestamp(),
         });
+        toast.info("Successfully added user!");
       } catch (error) {
         console.log(error);
       }
     } else {
       try {
+        toast.info("Successfully updated user!");
         await updateDoc(doc(db, "users", id), {
           ...data,
           timestamp: serverTimestamp(),

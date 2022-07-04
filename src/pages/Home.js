@@ -4,9 +4,10 @@ import { Card, Image, Button, Container, Row, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { onSnapshot, collection, deleteDoc, doc } from "firebase/firestore";
 import CModal from "../components/CModal";
-import { toBeRequired } from "@testing-library/jest-dom/dist/matchers";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Home = ({ isApprove, setConfirm }) => {
+const Home = ({ isApprove, setConfirmModal }) => {
   const [users, setUsers] = useState([]);
   const [show, setShow] = useState(false);
   const [userData, setUserData] = useState({});
@@ -44,6 +45,7 @@ const Home = ({ isApprove, setConfirm }) => {
   const handleDelete = async (id) => {
     if (isApprove !== false) {
       try {
+        toast.error("Successfully deleted user!");
         setShow(false);
         await deleteDoc(doc(db, "users", id));
         setUsers(users.filter((user) => user.id !== id));
