@@ -10,7 +10,7 @@ const CNavBar = () => {
       <Container className="pt-4">
         <Col sm={12}>
           <Navbar
-            className="shadow p-3"
+            className="shadow p-3 "
             collapseOnSelect
             expand="lg"
             bg="light"
@@ -19,8 +19,9 @@ const CNavBar = () => {
               <Navbar.Brand
                 onClick={() => navigate("/")}
                 className="title_text"
+                style={{ cursor: "pointer" }}
               >
-                Crud
+                CRUD
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">

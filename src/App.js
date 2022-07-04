@@ -20,6 +20,7 @@ function App() {
         newestOnTop={false}
         closeOnClick
         rtl={false}
+        delay={1000}
         pauseOnFocusLoss
         draggable
         pauseOnHover
