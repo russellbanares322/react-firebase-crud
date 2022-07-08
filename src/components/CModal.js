@@ -15,6 +15,7 @@ const CModal = ({
 }) => {
   const [isApprove, setIsApprove] = useState(true);
   const [confirmModal, setConfirmModal] = useState(false);
+
   const handleConfirmModal = () => {
     setConfirmModal(!confirmModal);
   };

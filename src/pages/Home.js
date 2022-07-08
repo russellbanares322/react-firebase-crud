@@ -8,7 +8,7 @@ import CSpinner from "../components/CSpinner";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Home = ({ isApprove, setConfirmModal }) => {
+const Home = ({ isApprove }) => {
   const [users, setUsers] = useState([]);
   const [show, setShow] = useState(false);
   const [userData, setUserData] = useState({});
@@ -50,19 +50,22 @@ const Home = ({ isApprove, setConfirmModal }) => {
   const handleDelete = async (id) => {
     if (isApprove !== false) {
       try {
-        toast.error("Successfully deleted user!");
         setShow(false);
         await deleteDoc(doc(db, "users", id));
         setUsers(users.filter((user) => user.id !== id));
+        toast.error("Successfully deleted user!");
       } catch (err) {
         console.log(err);
       }
     }
   };
+
   return (
     <Container>
       <Row>
-        {users &&
+        {users.length === 0 ? (
+          <h1 className="my-5">Currently no added user.</h1>
+        ) : (
           users.map((item) => (
             <Card
               style={{ width: "20rem", marginLeft: "52px" }}
@@ -94,7 +97,8 @@ const Home = ({ isApprove, setConfirmModal }) => {
                 </Button>
               </Card.Body>
             </Card>
-          ))}
+          ))
+        )}
       </Row>
       <Container>
         {show && (
