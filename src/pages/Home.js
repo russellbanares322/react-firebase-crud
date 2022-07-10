@@ -7,6 +7,7 @@ import CModal from "../components/CModal";
 import CSpinner from "../components/CSpinner";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ImFileEmpty } from "react-icons/im";
 
 const Home = ({ isApprove }) => {
   const [users, setUsers] = useState([]);
@@ -64,7 +65,10 @@ const Home = ({ isApprove }) => {
     <Container>
       <Row>
         {users.length === 0 ? (
-          <h1 className="my-5">Currently no added user.</h1>
+          <h1 className="my-5  no_usertext">
+            Currently no added user
+            <ImFileEmpty size={50} className="icon_file" />
+          </h1>
         ) : (
           users.map((item) => (
             <Card
