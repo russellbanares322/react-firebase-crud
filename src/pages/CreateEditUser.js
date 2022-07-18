@@ -200,6 +200,7 @@ const CreateEditUser = () => {
                   <Form.Label>Upload</Form.Label>
                   <Form.Control
                     type="file"
+                    multiple
                     onChange={(e) => setFile(e.target.files[0])}
                     placeholder="Enter contact no"
                   />

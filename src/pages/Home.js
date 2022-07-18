@@ -63,7 +63,7 @@ const Home = ({ isApprove }) => {
 
   return (
     <Container>
-      <Row>
+      <Row className="d-flex justify-content-center">
         {users.length === 0 ? (
           <h1 className="my-5  no_usertext">
             Currently no added user
@@ -72,14 +72,14 @@ const Home = ({ isApprove }) => {
         ) : (
           users.map((item) => (
             <Card
-              style={{ width: "20rem", marginLeft: "52px" }}
+              style={{ width: "20rem" }}
               key={item.id}
-              className="mt-5 shadow p-3 "
+              className="mt-5 shadow p-3 mx-2"
             >
               <Card.Body>
                 <Card.Img
                   src={item.img}
-                  className="img-fluid"
+                  fluid
                   style={{ height: "250px", width: "250px" }}
                 />
                 <Card.Title className="mt-3">{item.name}</Card.Title>
