@@ -10,7 +10,7 @@ const CNavBar = () => {
       <Container className="pt-4">
         <Col sm={12}>
           <Navbar
-            className="shadow p-3 "
+            className="shadow p-3 navbar"
             collapseOnSelect
             expand="lg"
             bg="light"
@@ -31,7 +31,7 @@ const CNavBar = () => {
                   </Nav.Link>
                 </Nav>
                 <Nav>
-                  <Button variant="info" onClick={() => navigate("/add")}>
+                  <Button variant="primary" onClick={() => navigate("/add")}>
                     Add
                   </Button>
                 </Nav>

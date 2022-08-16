@@ -137,15 +137,15 @@ const CreateEditUser = () => {
   return (
     <div>
       <Container>
-        <Row className="justify-content-center mt-5">
-          <Col sm={4}>
+        <Row className="justify-content-center mt-5 ">
+          <Col sm={7}>
             {isSubmit ? (
               <CSpinner />
             ) : (
               <>
                 <h1 className="user_text">{id ? "Update User" : "Add User"}</h1>
-                <Form className="border shadow p-5" onSubmit={handleSubmit}>
-                  <Form.Label>Name</Form.Label>
+                <Form className=" p-5 form" onSubmit={handleSubmit}>
+                  <Form.Label>Full Name</Form.Label>
                   <Form.Control
                     placeholder="Enter name"
                     onChange={handleChange}

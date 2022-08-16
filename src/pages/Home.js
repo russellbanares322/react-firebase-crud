@@ -71,16 +71,12 @@ const Home = ({ isApprove }) => {
           </h1>
         ) : (
           users.map((item) => (
-            <Card
-              style={{ width: "20rem" }}
-              key={item.id}
-              className="mt-5 shadow p-3 mx-2"
-            >
+            <Card key={item.id} className="mt-5 card p-2 mx-2">
               <Card.Body>
                 <Card.Img
                   src={item.img}
                   fluid
-                  style={{ height: "250px", width: "250px" }}
+                  style={{ width: "100%", height: "15rem" }}
                 />
                 <Card.Title className="mt-3">{item.name}</Card.Title>
                 <hr />
@@ -90,13 +86,17 @@ const Home = ({ isApprove }) => {
                 <hr />
 
                 <Button
-                  variant="info"
+                  variant="primary"
                   onClick={() => navigate(`/edit/${item.id}`)}
-                  className="mx-3"
+                  className="mx-3 mb-5"
                 >
                   Update
                 </Button>
-                <Button variant="info" onClick={() => modalToggle(item)}>
+                <Button
+                  className="mb-5"
+                  variant="outline-primary"
+                  onClick={() => modalToggle(item)}
+                >
                   View
                 </Button>
               </Card.Body>

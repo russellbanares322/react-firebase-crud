@@ -26,9 +26,9 @@ const CModal = ({
   const handleClose = () => setConfirmModal(false);
 
   return (
-    <Container>
+    <Container className="modal">
       <Modal.Dialog>
-        <Modal show={show} animation={true}>
+        <Modal show={show} animation={true} size="md">
           <Modal.Header>
             <Modal.Title>User Detail</Modal.Title>
             <CloseButton onClick={() => setShow(false)} />
