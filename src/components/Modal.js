@@ -36,7 +36,7 @@ const Modal = ({
       <ModalBs.Dialog>
         <ModalBs show={show} animation={true} size="md">
           <ModalBs.Header>
-            <ModalBs.Title>User Detail</ModalBs.Title>
+            <ModalBs.Title>Details</ModalBs.Title>
             <CloseButton onClick={() => setShow(false)} />
           </ModalBs.Header>
           <ModalBs.Body>
