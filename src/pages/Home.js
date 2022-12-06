@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { db } from "../firebase";
-import { Card, Button, Container, Row } from "react-bootstrap";
+import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { onSnapshot, collection, deleteDoc, doc } from "firebase/firestore";
-import CModal from "../components/CModal";
-import CSpinner from "../components/CSpinner";
+import Modal from "../components/Modal";
+import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ImFileEmpty } from "react-icons/im";
+import BlogContext from "../BlogContext";
 
 const Home = ({ isApprove }) => {
-  const [users, setUsers] = useState([]);
   const [show, setShow] = useState(false);
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { users, setUsers } = useContext(BlogContext);
 
   useEffect(() => {
     setLoading(true);
@@ -40,7 +41,7 @@ const Home = ({ isApprove }) => {
   }, []);
 
   if (loading) {
-    return <CSpinner />;
+    return <Spinner />;
   }
 
   const modalToggle = (item) => {
@@ -63,7 +64,13 @@ const Home = ({ isApprove }) => {
 
   return (
     <Container>
-      <Row className="d-flex justify-content-center">
+      <Row
+        sm={1}
+        md={2}
+        lg={3}
+        xl={3}
+        className="d-flex justify-content-center g-3"
+      >
         {users.length === 0 ? (
           <h1 className="my-5  no_usertext">
             Currently no added user
@@ -71,42 +78,48 @@ const Home = ({ isApprove }) => {
           </h1>
         ) : (
           users.map((item) => (
-            <Card key={item.id} className="mt-5 card p-2 mx-2">
-              <Card.Body>
-                <Card.Img
-                  src={item.img}
-                  fluid
-                  style={{ width: "100%", height: "15rem" }}
-                />
-                <Card.Title className="mt-3">{item.name}</Card.Title>
-                <hr />
-                <Card.Text>{item.details}</Card.Text>
-                <hr />
-                <Card.Text>{item.contact}</Card.Text>
-                <hr />
+            <Col className="d-flex justify-content-center">
+              <Card key={item.id} className="mt-5 card p-2 mx-2">
+                <Card.Body>
+                  <Card.Img
+                    src={item.img}
+                    fluid
+                    style={{
+                      width: "100%",
+                      height: "15rem",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <Card.Title className="mt-3">{item.name}</Card.Title>
+                  <hr />
+                  <Card.Text>{item.details}</Card.Text>
+                  <hr />
+                  <Card.Text>{item.contact}</Card.Text>
+                  <hr />
 
-                <Button
-                  variant="primary"
-                  onClick={() => navigate(`/edit/${item.id}`)}
-                  className="mx-3 mb-5"
-                >
-                  Update
-                </Button>
-                <Button
-                  className="mb-5"
-                  variant="outline-primary"
-                  onClick={() => modalToggle(item)}
-                >
-                  View
-                </Button>
-              </Card.Body>
-            </Card>
+                  <Button
+                    style={{ backgroundColor: "#3C6EE1", border: "none" }}
+                    onClick={() => navigate(`/edit/${item.id}`)}
+                    className="mx-3 mb-5"
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    className="mb-5"
+                    variant="outline-primary"
+                    onClick={() => modalToggle(item)}
+                  >
+                    View
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
           ))
         )}
       </Row>
       <Container>
         {show && (
-          <CModal
+          <Modal
             show={show}
             setShow={setShow}
             handleDelete={handleDelete}

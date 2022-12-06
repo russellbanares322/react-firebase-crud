@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import CSpinner from "../components/CSpinner";
+import Spinner from "../components/Spinner";
 const initialState = {
   name: "",
   location: "",
@@ -140,11 +140,13 @@ const CreateEditUser = () => {
         <Row className="justify-content-center mt-5 ">
           <Col sm={7}>
             {isSubmit ? (
-              <CSpinner />
+              <Spinner />
             ) : (
               <>
-                <h1 className="user_text">{id ? "Update User" : "Add User"}</h1>
                 <Form className=" p-5 form" onSubmit={handleSubmit}>
+                  <h1 className="user_text">
+                    {id ? "Update User" : "Add User"}
+                  </h1>
                   <Form.Label>Full Name</Form.Label>
                   <Form.Control
                     placeholder="Enter name"
@@ -200,9 +202,7 @@ const CreateEditUser = () => {
                   <Form.Label>Upload</Form.Label>
                   <Form.Control
                     type="file"
-                    multiple
                     onChange={(e) => setFile(e.target.files[0])}
-                    placeholder="Enter contact no"
                   />
                   <Button
                     variant="dark"
@@ -214,7 +214,7 @@ const CreateEditUser = () => {
                   <Button
                     className="mt-3"
                     type="submit"
-                    variant="info"
+                    style={{ backgroundColor: "#3C6EE1" }}
                     disabled={progress !== null && progress < 100}
                   >
                     {id ? "Save" : "Upload"}

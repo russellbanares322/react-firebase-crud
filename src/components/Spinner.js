@@ -1,19 +1,19 @@
-import { Spinner } from "react-bootstrap";
+import { Spinner as SpinnerBs } from "react-bootstrap";
 import React from "react";
 
-const CSpinner = () => {
+const Spinner = () => {
   return (
     <div>
-      <Spinner
+      <SpinnerBs
         animation="border"
         role="status"
         size="lg"
         style={{ height: "3rem", width: "3rem", marginTop: "40px" }}
       >
         <span className="visually-hidden">Loading...</span>
-      </Spinner>
+      </SpinnerBs>
     </div>
   );
 };
 
-export default CSpinner;
+export default Spinner;

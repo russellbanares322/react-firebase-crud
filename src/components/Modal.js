@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 
-import { Button, Modal, Image, Container, CloseButton } from "react-bootstrap";
+import {
+  Button,
+  Modal as ModalBs,
+  Image,
+  Container,
+  CloseButton,
+} from "react-bootstrap";
 
-const CModal = ({
+const Modal = ({
   show,
   setShow,
   img,
@@ -27,53 +33,53 @@ const CModal = ({
 
   return (
     <Container className="modal">
-      <Modal.Dialog>
-        <Modal show={show} animation={true} size="md">
-          <Modal.Header>
-            <Modal.Title>User Detail</Modal.Title>
+      <ModalBs.Dialog>
+        <ModalBs show={show} animation={true} size="md">
+          <ModalBs.Header>
+            <ModalBs.Title>User Detail</ModalBs.Title>
             <CloseButton onClick={() => setShow(false)} />
-          </Modal.Header>
-          <Modal.Body>
+          </ModalBs.Header>
+          <ModalBs.Body>
             <Image src={img} className="img-fluid" />
-          </Modal.Body>
-          <Modal.Body className="text-center">
-            <Modal.Title>{name}</Modal.Title>
+          </ModalBs.Body>
+          <ModalBs.Body className="text-center">
+            <ModalBs.Title>{name}</ModalBs.Title>
             <hr />
             <p>{contact}</p>
             <hr />
             <p>{details}</p>
             <hr />
             <p>{location}</p>
-          </Modal.Body>
-          <Modal.Footer>
+          </ModalBs.Body>
+          <ModalBs.Footer>
             <Button variant="danger" onClick={handleConfirmModal}>
               Delete
             </Button>
             <Button variant="dark" onClick={() => setShow(false)}>
               Return
             </Button>
-          </Modal.Footer>
-        </Modal>
-      </Modal.Dialog>
+          </ModalBs.Footer>
+        </ModalBs>
+      </ModalBs.Dialog>
       <Container>
-        <Modal.Dialog>
-          <Modal
+        <ModalBs.Dialog>
+          <ModalBs
             aria-labelledby="contained-modal-title-vcenter"
             centered
             className="modal_delete"
             show={confirmModal}
             onHide={confirmModal}
           >
-            <Modal.Header onClick={handleClose} closeButton>
-              <Modal.Title>Are you sure ?</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
+            <ModalBs.Header onClick={handleClose} closeButton>
+              <ModalBs.Title>Are you sure ?</ModalBs.Title>
+            </ModalBs.Header>
+            <ModalBs.Body>
               <p>
                 Do you really want to delete this record? This process cannot be
                 undone.
               </p>
-            </Modal.Body>
-            <Modal.Footer>
+            </ModalBs.Body>
+            <ModalBs.Footer>
               <Button
                 variant="danger"
                 onClick={() => {
@@ -86,12 +92,12 @@ const CModal = ({
               <Button variant="dark" onClick={handleClose}>
                 No
               </Button>
-            </Modal.Footer>
-          </Modal>
-        </Modal.Dialog>
+            </ModalBs.Footer>
+          </ModalBs>
+        </ModalBs.Dialog>
       </Container>
     </Container>
   );
 };
 
-export default CModal;
+export default Modal;

@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import CNavBar from "./components/CNavBar";
+import NavBar from "./components/NavBar";
 import CreateEditUser from "./pages/CreateEditUser";
 import Home from "./pages/Home";
 
 function App() {
   return (
     <div className="App">
-      <CNavBar />
+      <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/add" element={<CreateEditUser />} />
