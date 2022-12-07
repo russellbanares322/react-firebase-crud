@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { db } from "../firebase";
+import { db } from "../config/firebase";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { onSnapshot, collection, deleteDoc, doc } from "firebase/firestore";

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Container, Col, Row } from "react-bootstrap";
-import { storage, db } from "../firebase";
+import { storage, db } from "../config/firebase";
 import { useParams, useNavigate } from "react-router-dom";
 import { getDownloadURL, uploadBytesResumable, ref } from "firebase/storage";
 import {
