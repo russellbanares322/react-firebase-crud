@@ -2,10 +2,11 @@
 
 .App {
   text-align: center;
-  height: 130vh;
+  height: auto;
   font-family: 'Poppins';
   background-image: url('./assets/backgroundImg.svg');
   background-size: cover;
+  padding-bottom: 4rem;
 }
 .modal {
   font-family: 'Poppins';
